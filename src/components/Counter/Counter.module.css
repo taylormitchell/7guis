@@ -1,0 +1,13 @@
+.counter {
+    width: 150px;
+    height: 100%;
+    padding: 20px;
+}
+
+.input {
+    width: 50px;
+}
+
+.button {
+    margin-left: 5px;
+}

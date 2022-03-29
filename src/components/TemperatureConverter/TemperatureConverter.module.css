@@ -1,0 +1,11 @@
+
+
+.temperature-converter {
+    width: 300px;
+    padding: 10px;
+}
+
+.temperature-converter input {
+    width: 30px;
+    margin-right: 5px;
+}

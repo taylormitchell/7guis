@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+.flight-booker {
+  width: 200px;
+  padding: 5px;
+}
+
+.selector {
+  width: 100%;
+}
+
+.date-field {
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.date-field.invalid {
+  width: 100%;
+  background-color: red;
+}
+
+.button {
+  width: 100%;
+}
