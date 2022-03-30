@@ -1,0 +1,23 @@
+
+.main {
+    display: flex;
+    width: 400px;
+    height: 150px;
+    min-width: max-content;
+    min-height: 100px;
+}
+
+.left {
+    flex: 1 1 auto;
+    padding: 10px;
+}
+
+.right {
+    flex: 0 0 auto;
+    width: 200px;
+    padding: 10px;
+}
+
+.buttons button {
+    margin: 10px 5px;
+}

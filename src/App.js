@@ -3,6 +3,7 @@ import Counter from './components/Counter/Counter';
 import FlightBooker from './components/FlightBooker/FlightBooker';
 import TemperatureConverter from './components/TemperatureConverter/TemperatureConverter';
 import Timer from './components/Timer/Timer';
+import CRUD from './components/CRUD/CRUD';
 
 function App() {
   return (
@@ -26,8 +27,14 @@ function App() {
           <h2>Timer</h2>
           <Timer />
         </li>
+        <li>
+          <h2>CRUD</h2>
+          <CRUD />
+        </li>
+        
       </ol>
     </div>
+    
   );
 }
 

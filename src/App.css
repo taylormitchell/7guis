@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 
 .App {
   display: flex;
@@ -10,5 +13,59 @@
   font-size: 2rem;
 }
 
+.main {
+  width: 200px;
+}
+
+.flex-container {
+  display: flex;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.flex-container input {
+  flex: 1 1 auto;
+  width: 50px;
+}
+
+.flex-container div {
+  flex: 1 1 auto;
+  width: 50px;
+  height: 50px;
+  background-color: blue;
+}
 
 
+.list {
+  display: flex;
+  width: 200px;
+  height: 40px;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.list input {
+  height: 21.5px;
+  flex: 1 1 0;
+  width: 50px;
+  min-width: 0;
+}
+
+.test {
+  margin-top: 100px;
+  display: flex;
+  border: 1px solid black;
+  width: 300px;
+}
+
+.test div {
+  border: 1px solid red;
+  margin: 5px;
+  flex: 1 1 auto;
+}
+
+
+.minblue {
+  background-color: rgb(75, 213, 255);
+  width: 300px;
+}
