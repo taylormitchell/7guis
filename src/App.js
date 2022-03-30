@@ -2,6 +2,7 @@ import './App.css';
 import Counter from './components/Counter/Counter';
 import FlightBooker from './components/FlightBooker/FlightBooker';
 import TemperatureConverter from './components/TemperatureConverter/TemperatureConverter';
+import Timer from './components/Timer/Timer';
 
 function App() {
   return (
@@ -18,8 +19,12 @@ function App() {
           <TemperatureConverter />
         </li>
         <li>
-          <h3>Flight Booker</h3>
+          <h2>Flight Booker</h2>
           <FlightBooker />
+        </li>
+        <li>
+          <h2>Timer</h2>
+          <Timer />
         </li>
       </ol>
     </div>
