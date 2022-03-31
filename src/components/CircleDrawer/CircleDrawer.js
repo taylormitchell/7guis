@@ -1,5 +1,5 @@
 import style from "./CircleDrawer.module.css";
-import { useRef, useState } from "react";
+import { useRef, useState, useReducer } from "react";
 import Window from "../Window/Window";
 import Circle from "./Circle";
 import CircleSlider from "./CircleSlider";
@@ -8,7 +8,6 @@ import _ from "lodash";
 const CircleDrawer = (props) => {
   const DEFAULT_RADIUS = 20;
 
-  const [circles, setCircles] = useState({});
   const [undoStack, setUndoStack] = useState([]);
   const [redoStack, setRedoStack] = useState([]);
   const [sliderTop, setSliderTop] = useState(0);
@@ -30,6 +29,19 @@ const CircleDrawer = (props) => {
     return lastState;
   };
 
+  const [circles, dispatchCircles] = useReducer((state, action) => {
+    if (action.type === "ADD_CIRCLE") {
+      setRedoStack([]);
+      let id = _.uniqueId("circles_");
+      return { ...state, [id]: action.values };
+    } else if (action.type === "UPDATE_CIRCLE") {
+      setRedoStack([]);
+      return { ...state, [action.id]: { ...state[action.id], ...action.values } };
+    } else if (action.type === "SET_CIRCLES") {
+      return { ...action.values };
+    }
+  }, {});
+
   const canvasClickHandler = (e) => {
     if (sliderShow) return;
     let rect = canvas.current.getBoundingClientRect();
@@ -38,21 +50,20 @@ const CircleDrawer = (props) => {
     let id = _.uniqueId("circle_");
     let circle = { id: id, radius: DEFAULT_RADIUS, x: x, y: y };
     undoStackPush(_.cloneDeep(circles));
-    setCircles((prev) => {
-      return { ...prev, [circle.id]: circle };
-    });
+    setRedoStack([]);
+    dispatchCircles({ type: "ADD_CIRCLE", values: circle });
   };
 
-  const undoHandler = (e) => {
+  const undoHandler = () => {
     if (!undoStack.length) return;
     redoStackPush(circles);
-    setCircles(undoStackPop());
+    dispatchCircles({ type: "SET_CIRCLES", values: undoStackPop() });
   };
 
   const redoHandler = () => {
     if (!redoStack.length) return;
     undoStackPush(circles);
-    setCircles(redoStackPop());
+    dispatchCircles({ type: "SET_CIRCLES", values: redoStackPop() });
   };
 
   const sliderOpenHandler = (circleId, event) => {
@@ -68,15 +79,14 @@ const CircleDrawer = (props) => {
     let circle = circles[circleId];
     let prevCircle = undoStack.slice(-1)[0][circleId] || null;
     if (prevCircle.radius !== circle.radius) {
-        undoStackPop();
+      undoStackPop();
     }
     setSliderShow(false);
   };
 
   const sliderChangeHandler = (circleId, event) => {
-    let circle = circles[circleId];
     let radius = Number(event.target.value);
-    setCircles({ ...circles, [circleId]: { ...circle, radius: radius } });
+    dispatchCircles({ type: "UPDATE_CIRCLE", id: circleId, values: { radius } });
   };
 
   return (
