@@ -1,0 +1,47 @@
+
+.circle-drawer {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 400px;
+}
+
+.circle-drawer header {
+    flex: 0 0 auto;
+    display: flex;
+}
+
+.circle-drawer section {
+    flex: 1 1 auto;
+}
+
+.canvas {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 90%;
+    height: 90%;
+    margin: 5%;
+    border: 1px solid #000;
+    background-color: white;
+    overflow: hidden;
+}
+
+.circle {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: 1px solid #000;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.circle-drawer li {
+    list-style: none;
+}
+
+.modal-container {
+    position: relative;
+}
+

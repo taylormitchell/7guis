@@ -4,6 +4,7 @@ import FlightBooker from './components/FlightBooker/FlightBooker';
 import TemperatureConverter from './components/TemperatureConverter/TemperatureConverter';
 import Timer from './components/Timer/Timer';
 import CRUD from './components/CRUD/CRUD';
+import CircleDrawer from './components/CircleDrawer/CircleDrawer';
 
 function App() {
   return (
@@ -11,6 +12,10 @@ function App() {
       <header className="App-header">7GUIs</header>
       <p>This is an implementation of 7GUIs using React</p>
       <ol>
+        <li>
+          <h2>Circle Drawer</h2>
+          <CircleDrawer />
+        </li>
         <li>
           <h2>Counter</h2>
           <Counter />
