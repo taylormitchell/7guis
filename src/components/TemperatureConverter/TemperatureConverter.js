@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Window from "../Window/Window";
 import styles from "./TemperatureConverter.module.css";
 
 const TemperatureConverter = (props) => {
@@ -20,26 +19,16 @@ const TemperatureConverter = (props) => {
       }
     };
   };
-  const cChangeHandler = createChangeHandler(
-    setTempCInput,
-    setTempFInput,
-    CtoF
-  );
-  const fChangeHandler = createChangeHandler(
-    setTempFInput,
-    setTempCInput,
-    FtoC
-  );
+  const cChangeHandler = createChangeHandler(setTempCInput, setTempFInput, CtoF);
+  const fChangeHandler = createChangeHandler(setTempFInput, setTempCInput, FtoC);
 
   return (
-    <Window title="Temperature Converter">
-      <div className={styles['temperature-converter']}>
-        <input type="text" value={tempCInput} onChange={cChangeHandler}></input>
-        <span>Celsius = </span>
-        <input type="text" value={tempFInput} onChange={fChangeHandler}></input>
-        <span>Fahrenheit</span>
-      </div>
-    </Window>
+    <div className={styles["temperature-converter"]}>
+      <input type="text" value={tempCInput} onChange={cChangeHandler}></input>
+      <span>Celsius = </span>
+      <input type="text" value={tempFInput} onChange={fChangeHandler}></input>
+      <span>Fahrenheit</span>
+    </div>
   );
 };
 

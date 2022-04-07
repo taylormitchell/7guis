@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Window from "../Window/Window";
 import Form from "./Form";
 import List from "./List";
 import classes from "./CRUD.module.css";
@@ -57,7 +56,7 @@ const CRUD = (props) => {
   const invalidState = nameField === "" || surnameField === "";
 
   return (
-    <Window title="CRUD">
+    <div>
       <section className={classes["main"]}>
         <div className={classes["left"]}>
           <List people={people} onChange={selectHandler} selection={selectedKey} />
@@ -80,7 +79,7 @@ const CRUD = (props) => {
         </button>
         <button onClick={deleteHandler}>Delete</button>
       </section>
-    </Window>
+    </div>
   );
 };
 

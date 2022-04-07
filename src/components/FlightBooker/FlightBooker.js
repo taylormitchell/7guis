@@ -1,4 +1,3 @@
-import Window from "../Window/Window";
 import DateField from "./DateField";
 import style from "./FlightBooker.module.css";
 import { useState } from "react";
@@ -17,7 +16,6 @@ function isValidDate(date) {
   return (date instanceof Date) && date.toString() !== 'Invalid Date' 
 }
 
-const TITLE = "Flight Booker";
 const FLIGHT_SELECTIONS = {
   ONE_WAY: "One way",
   RETURN: "Return flight",
@@ -47,7 +45,6 @@ const FlightBooker = (props) => {
   };
 
   return (
-    <Window title={TITLE}>
       <div className={style["flight-booker"]}>
         <select
           className={style["selector"]}
@@ -77,7 +74,6 @@ const FlightBooker = (props) => {
           Book
         </button>
       </div>
-    </Window>
   );
 };
 

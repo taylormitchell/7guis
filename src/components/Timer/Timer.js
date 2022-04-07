@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Window from "../Window/Window";
 import ProgressBar from "./ProgressBar";
 import style from "./Timer.module.css";
 
@@ -41,31 +40,29 @@ const Timer = (props) => {
   const elapsedPercent = Math.min(Math.round((elapsed / duration) * 100), 100);
 
   return (
-    <Window title="Timer">
-      <div className={style["timer"]}>
-        <div>
-          <span>Elapsed Time:</span>
-          <ProgressBar percent={elapsedPercent} />
-        </div>
-        <div>
-          <span>{elapsedSeconds}</span>
-        </div>
-        <div>
-          <div>
-            <label htmlFor="myRange">Duration: </label>
-            <input
-              type="range"
-              min={0}
-              max={20000}
-              value={duration}
-              id="myRange"
-              onChange={slideHandler}
-            />
-          </div>
-        </div>
-        <button onClick={resetHandler}>Reset</button>
+    <div className={style["timer"]}>
+      <div>
+        <span>Elapsed Time:</span>
+        <ProgressBar percent={elapsedPercent} />
       </div>
-    </Window>
+      <div>
+        <span>{elapsedSeconds}</span>
+      </div>
+      <div>
+        <div>
+          <label htmlFor="myRange">Duration: </label>
+          <input
+            type="range"
+            min={0}
+            max={20000}
+            value={duration}
+            id="myRange"
+            onChange={slideHandler}
+          />
+        </div>
+      </div>
+      <button onClick={resetHandler}>Reset</button>
+    </div>
   );
 };
 

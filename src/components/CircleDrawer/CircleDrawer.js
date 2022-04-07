@@ -1,6 +1,5 @@
 import style from "./CircleDrawer.module.css";
-import { useRef, useState, useReducer } from "react";
-import Window from "../Window/Window";
+import { useRef, useState, useReducer, Fragment } from "react";
 import Circle from "./Circle";
 import CircleSlider from "./CircleSlider";
 import _ from "lodash";
@@ -90,7 +89,7 @@ const CircleDrawer = (props) => {
   };
 
   return (
-    <Window title="Circle Drawer">
+    <Fragment>
       <div className={style["circle-drawer"]}>
         <header>
           <button onClick={undoHandler}>Undo</button>
@@ -112,7 +111,7 @@ const CircleDrawer = (props) => {
           onClose={sliderCloseHandler.bind(null, selectedCircleId)}
         />
       ) : null}
-    </Window>
+    </Fragment>
   );
 };
 
