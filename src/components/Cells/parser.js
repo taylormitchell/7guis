@@ -30,9 +30,10 @@ class Literal extends Expr {
   }
 }
 
-class ParseError {
+class ParseError extends Error {
   constructor(message) {
-    this.message = message;
+    super(message);
+    this.name = "ParseError";
   }
 }
 

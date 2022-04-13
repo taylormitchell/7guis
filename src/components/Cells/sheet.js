@@ -42,6 +42,13 @@ export const sheetIdToCoord = (id) => {
   return [rowSheetIdToNum(rowId), colSheetIdToNum(colId)];
 };
 
+class EvalError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "RuntimeError";
+  }
+}
+
 class Cell {
   constructor(
     value = "",
@@ -119,14 +126,6 @@ export const setExpression = (cells, id, expressionStr) => {
   let parser = new Parser(expressionStr);
   let expr = parser.parse();
   newCells = set(newCells, id, {subscriptions: getExprDependencies(expr)});
-  // if(newSubscriptions.includes(sheetId)) {
-  //   newCells = set(newCells, id, {
-  //     value: ERROR,
-  //     hasError: true,
-  //     message: "Circular dependency",
-  //     newSubscriptions: [],
-  //   })
-  // } else {
 
   // Update subscriber lists
   get(newCells, id).subscriptions.forEach(subscriptionSheetId => {
@@ -148,17 +147,18 @@ export const evaluate = (cells, id) => {
   let sheetId = getSheetId(newCells, id);
 
   // Evaluate cell
-  let parser = new Parser(get(newCells, id).exprStr);
+  let exprStr = get(newCells, id).exprStr
+  let parser = new Parser(exprStr);
   let expr = parser.parse();
   if (expr instanceof ParseError) {
     newCells = set(newCells, id, {
-      value: ERROR,
+      value: exprStr,
       message: expr.message,
       hasError: true,
     });
   } else if(get(newCells, id).subscriptions.includes(sheetId)) {
     newCells = set(newCells, id, {
-      value: ERROR,
+      value: exprStr,
       message: "Circular dependency",
       hasError: true,
     });
@@ -170,9 +170,7 @@ export const evaluate = (cells, id) => {
         throw new Error("Internal error: Unknown expression type");
       } else if(res instanceof Array) {
         throw new Error("Cell value cannot be an array");
-      } else if(res === ERROR) {
-        throw new Error("A reference cell has an error ");
-      }
+      }      
       newCells = set(newCells, id, {
         value: res,
         message: null,
@@ -180,7 +178,7 @@ export const evaluate = (cells, id) => {
       });
     } catch (e) {
       newCells = set(newCells, id, {
-        value: ERROR,
+        value: exprStr,
         message: e.message,
         hasError: true,
       });
@@ -213,6 +211,10 @@ const evaluateExpr = (cells, expr) => {
     return expr.value;
   } else if (expr instanceof CellRef) {
     let cell = get(cells, expr.id);
+    if(cell.hasError) {
+      let sheetId = getSheetId(cells, expr.id);
+      throw new EvalError(`Referenced cell ${sheetId} has an error: ${cell.message}`);
+    }
     return cell.value;
   } else if (expr instanceof CellRefRange) {
     return cellRefRangeToList(expr.id1, expr.id2).map(id => get(cells, id).value)

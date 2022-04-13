@@ -7,7 +7,7 @@ const Cell = (props) => {
   return (
     <div
       id={props.id}
-      className={style["cell"] + (props.hasError ? " error" : "")}
+      className={style["cell"] + (props.hasError ? " " + style["error"] : "")}
       style={{
         gridRow: props.row + 2,
         gridColumn: props.column + 2,
