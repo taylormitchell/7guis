@@ -3,22 +3,32 @@
 }
 
 html, body, #root {
+  width: 100%;
   height: 100%;
   margin: 0;
 }
 
 .App {
-  position: relative;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: top;
-  width: 100%;
-  height: 100%;
 }
 
 .App-header {
   font-size: 2rem;
+}
+
+#windows {
+  display: flex;
+  min-width: 200px;
+  min-width: 600px;
+  flex-direction: column;
+}
+
+#windows > * {
+  margin-bottom: 30px;
 }
 
 .main {
@@ -57,23 +67,4 @@ html, body, #root {
   flex: 1 1 0;
   width: 50px;
   min-width: 0;
-}
-
-.test {
-  margin-top: 100px;
-  display: flex;
-  border: 1px solid black;
-  width: 300px;
-}
-
-.test div {
-  border: 1px solid red;
-  margin: 5px;
-  flex: 1 1 auto;
-}
-
-
-.minblue {
-  background-color: rgb(75, 213, 255);
-  width: 300px;
 }
