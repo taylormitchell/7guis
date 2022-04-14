@@ -32,6 +32,7 @@ function App() {
 
   return (
     <div className="App">
+      <p>Added a thing</p>
       <header className="App-header">7GUIs</header>
       <p>This is an implementation of 7GUIs using React</p>
       <div id="windows">
