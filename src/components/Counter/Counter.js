@@ -8,8 +8,9 @@ const Counter = props => {
     }
     return (
         <div className={styles.counter}>
+            <button className={styles.button} onClick={() => setCount(c => c - 1)}>-</button>
             <input className={styles.input} type="text" value={count} disabled></input>
-            <button className={styles.button} onClick={clickButtonHandler}>Count</button>
+            <button className={styles.button} onClick={() => setCount(c => c + 1)}>+</button>
         </div>
     )
 }
