@@ -1,8 +1,6 @@
 import _ from "lodash";
 import { Parser, CellRef, CellRefRange, Func, Literal, ParseError } from "./parser";
 
-const ERROR = "#ERROR";
-
 export const colNumToSheetId = (n) => {
   let ordA = "A".charCodeAt(0);
   let ordZ = "Z".charCodeAt(0);

@@ -1,5 +1,4 @@
 import React from "react";
-import WindowButton from "./WindowButton";
 import style from "./Window.module.css";
 
 const WindowHeader = (props) => {

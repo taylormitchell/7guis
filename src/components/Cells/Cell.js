@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState } from "react";
 import style from "./Cells.module.css";
 
 const Cell = (props) => {
