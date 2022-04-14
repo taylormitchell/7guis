@@ -3,6 +3,7 @@ import style from "./CircleSlider.module.css";
 
 const CircleSlider = (props) => {
 
+  const { onClose } = props;
   // Close slider when anywhere but the slider is clicked
   useEffect(() => {
     const handler = document.addEventListener("click", (e) => {
@@ -10,11 +11,11 @@ const CircleSlider = (props) => {
       if (modal && modal.contains(e.target)) {
         return;
       }
-      props.onClose();
+      onClose();
       e.stopPropagation();
     });
     return () => document.removeEventListener("click", handler);
-  }, []);
+  }, [onClose]);
 
   return (
     <div
