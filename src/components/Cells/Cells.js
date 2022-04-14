@@ -20,8 +20,8 @@ class ColumnStyle {
 }
 
 const Cells = (props) => {
-  const initRowCount = 5;
-  const initColCount = 4;
+  const initRowCount = 3;
+  const initColCount = 3;
   const initRowHeight = 30;
   const initColWidth = 100;
   const [cells, setCells] = useState(new sheet.Grid(initRowCount, initColCount));
