@@ -49,7 +49,7 @@ class EvalError extends Error {
   }
 }
 
-class Cell {
+export class Cell {
   constructor(
     value = "",
     exprStr = "",
@@ -141,57 +141,109 @@ export const setExpression = (cells, id, expressionStr) => {
   return evaluate(newCells, id);
 };
 
-export const evaluate = (cells, id) => {
-  let newCells = cells;
-
-  let sheetId = getSheetId(newCells, id);
-
-  // Evaluate cell
-  let exprStr = get(newCells, id).exprStr
-  let parser = new Parser(exprStr);
-  let expr = parser.parse();
-  if (expr instanceof ParseError) {
-    newCells = set(newCells, id, {
-      value: exprStr,
-      message: expr.message,
-      hasError: true,
-    });
-  } else if(get(newCells, id).subscriptions.includes(sheetId)) {
-    newCells = set(newCells, id, {
-      value: exprStr,
-      message: "Circular dependency",
-      hasError: true,
-    });
-    return newCells
-  } else {
-    try {
-      let res = evaluateExpr(newCells, expr);
-      if(res === null) {
-        throw new Error("Internal error: Unknown expression type");
-      } else if(res instanceof Array) {
-        throw new Error("Cell value cannot be an array");
-      }      
-      newCells = set(newCells, id, {
-        value: res,
-        message: null,
-        hasError: false,
-      });
-    } catch (e) {
-      newCells = set(newCells, id, {
-        value: exprStr,
-        message: e.message,
-        hasError: true,
-      });
-    }
+export class Evaluator {
+  constructor() {
+    this.graphVisits = {}
+    this.pathVisits = []
+    this.circularVisits = {} 
+    this.ran = false;
   }
 
-  // Evaluate subscribers
-  get(newCells, id).subscribers.forEach((subscriberSheetId) => {
-    newCells = evaluate(newCells, subscriberSheetId);
-  });
+  evaluate = (cells, id) => {
+    if(this.ran) {
+      throw new EvalError("Evaluator already ran");
+    }
+    this.ran = true;
+    let newCells = cells;
 
-  return newCells;
-};
+    let startingSheetId = getSheetId(newCells, id);
+    let evalOrder = this.getEvalOrder(newCells, startingSheetId);
+    evalOrder.forEach(sheetId => {
+      newCells = this.evaluateCell(newCells, sheetId);
+    })
+    return newCells;
+  }
+
+  evaluateCell = (cells, id) => {
+    let newCells = cells;
+    let sheetId = getSheetId(newCells, id);
+
+    // Parse expression
+    let exprStr = get(newCells, id).exprStr
+    let parser = new Parser(exprStr);
+    let expr = parser.parse();
+
+    if (expr instanceof ParseError) {
+      newCells = set(newCells, id, {
+        value: exprStr,
+        message: expr.message,
+        hasError: true,
+      });
+    } else if(this.circularVisits[sheetId]) {
+      newCells = set(newCells, id, {
+        value: exprStr,
+        message: "Circular dependency",
+        hasError: true,
+      });
+    } else {
+      try {
+        let res = evaluateExpr(newCells, expr);
+        if(res === null) {
+          throw new Error("Internal error: Unknown expression type");
+        } else if(res instanceof Array) {
+          throw new Error("Cell value cannot be an array");
+        }      
+        newCells = set(newCells, id, {
+          value: res,
+          message: null,
+          hasError: false,
+        });
+      } catch (e) {
+        newCells = set(newCells, id, {
+          value: exprStr,
+          message: e.message,
+          hasError: true,
+        });
+      }
+    }
+
+    return newCells;
+  }
+
+  getEvalOrder = (cells, sheetId) => {
+    // Handle already visited node
+    if(this.graphVisits[sheetId]) {
+      // Check if path loops back on itself and flag 
+      if(this.pathVisits.includes(sheetId)) {
+        let circleStart = this.pathVisits.findIndex(id => id === sheetId);
+        this.pathVisits.slice(circleStart).forEach(id => {
+          this.circularVisits[id] = true;
+        })
+      }
+      this.pathVisits.pop();
+      return [];
+    }
+
+    // Mark visited
+    this.pathVisits.push(sheetId);
+    this.graphVisits[sheetId] = true;
+
+    // Get eval order of subscribers
+    let evalOrder = [];
+    get(cells, sheetId).subscribers.forEach(subId => {
+      let subEvalOrder = this.getEvalOrder(cells, subId)
+      evalOrder = subEvalOrder.concat(evalOrder);
+    })
+    this.pathVisits.pop();
+    return [sheetId].concat(evalOrder);
+  }
+} 
+
+
+export const evaluate = (cells, id) => {
+  let evaluator = new Evaluator();
+  return evaluator.evaluate(cells, id);
+}
 
 const getExprDependencies = (expr) => {
   if (expr instanceof CellRef) {
