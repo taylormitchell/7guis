@@ -1,5 +1,5 @@
 import { useState } from "react";
-import style from './List.module.css'
+import style from './CRUD.module.css'
 
 const List = (props) => {
   const [filter, setFilter] = useState("");

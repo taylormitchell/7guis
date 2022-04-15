@@ -17,3 +17,9 @@
     background-color: rgb(77, 234, 255);
     border-radius: 3px;
 }
+
+.timer > button {
+    width: 100%;
+    height: 30px;
+    margin-top: 5px;
+}

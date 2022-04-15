@@ -5,8 +5,8 @@ const TemperatureConverter = (props) => {
   const [tempCInput, setTempCInput] = useState("");
   const [tempFInput, setTempFInput] = useState("");
 
-  const CtoF = (c) => (c * 9) / 5 + 32;
-  const FtoC = (f) => ((f - 32) * 5) / 9;
+  const CtoF = (c) => Math.round(((c * 9) / 5 + 32)*10)/10;
+  const FtoC = (f) => Math.round((((f - 32) * 5) / 9)*10)/10;
 
   const createChangeHandler = (inputSetter, outputSetter, inputToOutput) => {
     return (e) => {
@@ -25,9 +25,10 @@ const TemperatureConverter = (props) => {
   return (
     <div className={styles["temperature-converter"]}>
       <input type="text" value={tempCInput} onChange={cChangeHandler}></input>
-      <span>Celsius = </span>
+      <span>°C</span>
+      <span className={styles["equal-size"]}>=</span>
       <input type="text" value={tempFInput} onChange={fChangeHandler}></input>
-      <span>Fahrenheit</span>
+      <span>°F</span>
     </div>
   );
 };

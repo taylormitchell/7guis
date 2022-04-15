@@ -1,11 +1,20 @@
 
 
 .temperature-converter {
-    width: 300px;
-    padding: 10px;
+    padding: 20px;
 }
 
 .temperature-converter input {
-    width: 50px;
-    margin-right: 5px;
+    width: 70px;
+    margin-right: 3px;
+    font-size: 1.5rem;
+}
+
+.temperature-converter span {
+    font-size: 1.5rem;
+}
+
+.equal-size {
+    margin-left: 10px;
+    margin-right: 10px;
 }

@@ -18,6 +18,7 @@ html, body, #root {
 .App {
   max-width: 600px;
   width: 100%;
+  padding: 10px;
 }
 
 .test {
@@ -32,7 +33,7 @@ html, body, #root {
   display: flex;
   max-width: 600px;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
 }
 
 #windows > * {

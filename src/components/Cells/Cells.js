@@ -23,7 +23,7 @@ const Cells = (props) => {
   const initRowCount = 3;
   const initColCount = 3;
   const initRowHeight = 30;
-  const initColWidth = 100;
+  const initColWidth = 80;
   const [cells, setCells] = useState(new sheet.Grid(initRowCount, initColCount));
   const [columnsStyle, setColumnsStyle] = useState(() => {
     return _.range(initColCount).map(() => new ColumnStyle(initColWidth));

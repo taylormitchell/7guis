@@ -1,7 +1,11 @@
 
 .flight-booker {
   width: 200px;
-  padding: 5px;
+  padding: 10px;
+}
+
+.flight-booker > * {
+  margin-bottom: 2px;
 }
 
 .selector {
@@ -20,4 +24,5 @@
 
 .button {
   width: 100%;
+  height: 30px;
 }

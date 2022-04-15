@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Form from "./Form";
 import List from "./List";
-import classes from "./CRUD.module.css";
+import style from "./CRUD.module.css";
 
 const CRUD = (props) => {
   const [selectedKey, setSelectedKey] = useState(0);
@@ -9,10 +9,7 @@ const CRUD = (props) => {
   const [nameField, setNameField] = useState("");
   const [surnameField, setSurnameField] = useState("");
 
-  const [people, setPeople] = useState({
-    0: { key: "0", name: "Taylor", surname: "Mitchell" },
-    1: { key: "1", name: "Emily", surname: "Unger" },
-  });
+  const [people, setPeople] = useState({});
 
   const selectHandler = (event) => {
     const key = event.target.value;
@@ -56,12 +53,12 @@ const CRUD = (props) => {
   const invalidState = nameField === "" || surnameField === "";
 
   return (
-    <div>
-      <section className={classes["main"]}>
-        <div className={classes["left"]}>
+    <div className={style["crud"]}>
+      <section className={style["main"]}>
+        <div className={style["left"]}>
           <List people={people} onChange={selectHandler} selection={selectedKey} />
         </div>
-        <div className={classes["right"]}>
+        <div className={style["right"]}>
           <Form
             nameField={nameField}
             surnameField={surnameField}
@@ -70,7 +67,7 @@ const CRUD = (props) => {
           />
         </div>
       </section>
-      <section className={classes["buttons"]}>
+      <section className={style["buttons"]}>
         <button disabled={invalidState} onClick={createHandler}>
           Create
         </button>

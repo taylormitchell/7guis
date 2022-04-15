@@ -1,4 +1,4 @@
-import style from './Form.module.css'
+import style from './CRUD.module.css'
 
 const Form = (props) => {
   return (

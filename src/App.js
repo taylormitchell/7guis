@@ -90,7 +90,7 @@ function App() {
       <header className="App-header">7GUIs in React</header>
       <p>
         My implementation of <a href="https://eugenkiss.github.io/7guis/">7GUIs</a> with React.
-        Source <a href="https://github.com/taylormitchell/7guis">here</a>.
+        (<a href="https://github.com/taylormitchell/7guis">source</a>).
       </p>
       <div id="windows">
         {windows.map((w, i) => {
