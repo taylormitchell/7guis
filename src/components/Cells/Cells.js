@@ -59,7 +59,12 @@ const Cells = (props) => {
   const onKeyPress = (id, event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      moveToCell(id, sheet.getBelow(cells, id).id);
+      let rowNum = sheet.getRowOrder(cells, id)
+      if(rowNum >= cells.length - 1) {
+        event.target.blur();
+      } else {
+        moveToCell(id, sheet.getBelow(cells, id).id);
+      }
     }
   };
   const onKeyDown = (id, event) => {

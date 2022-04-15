@@ -121,7 +121,7 @@ class Parser {
     return new Literal(string);
   };
   parseNumber = () => {
-    let m = this.string.slice(this.current).match(/^[1-9]?[0-9]+/);
+    let m = this.string.slice(this.current).match(/^[1-9]?[0-9]+\.?[0-9]*/);
     if (!m) return null;
     this.advance(m[0].length);
     return new Literal(Number(m[0]));

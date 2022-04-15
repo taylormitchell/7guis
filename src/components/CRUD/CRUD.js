@@ -14,7 +14,7 @@ const CRUD = (props) => {
   const selectHandler = (event) => {
     const key = event.target.value;
     setSelectedKey(key);
-    const selection = people.find(p => p.key == key);
+    const selection = people.find(p => p.key === key);
     setNameField(selection.name);
     setSurnameField(selection.surname);
   };
@@ -27,7 +27,7 @@ const CRUD = (props) => {
 
   const updateHandler = () => {
     setPeople(people => {
-      let i = people.findIndex(p => p.key == selectedKey)
+      let i = people.findIndex(p => p.key === selectedKey)
       let updatedPerson = {...people[i], name: nameField, surname: surnameField};
       return [...people.slice(0, i), updatedPerson, ...people.slice(i + 1)];
     });
@@ -35,7 +35,7 @@ const CRUD = (props) => {
 
   const deleteHandler = () => {
     setPeople(people => {
-      let i = people.findIndex(p => p.key == selectedKey)
+      let i = people.findIndex(p => p.key === selectedKey)
       return [...people.slice(0, i), ...people.slice(i + 1)];
     });
     setNameField("");
