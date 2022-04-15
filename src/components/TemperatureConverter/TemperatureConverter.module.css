@@ -1,6 +1,7 @@
 
 
 .temperature-converter {
+    display: flex;
     padding: 20px;
 }
 

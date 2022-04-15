@@ -16,29 +16,36 @@ html, body, #root {
 }
 
 .App {
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
   padding: 10px;
 }
 
-.test {
-  align-items: center;
-}
-
-.App-header {
+.App > header {
   font-size: 2rem;
+  text-align: center;
 }
 
-#windows {
+.App > p {
+  text-align: center;
+}
+
+#tasks {
   display: flex;
-  max-width: 600px;
   flex-direction: column;
   align-items: center;
 }
 
-#windows > * {
-  width: max-content;
-  margin-bottom: 30px;
+#tasks > * {
+  max-width: 500px;
+}
+
+#tasks > div {
+  margin-bottom: 20px;
+}
+
+.task-window {
+  width: min-content;
 }
 
 .flex-container {
