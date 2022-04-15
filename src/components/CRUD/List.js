@@ -13,12 +13,12 @@ const List = (props) => {
         <label htmlFor="filter">Filter prefix:</label>
         <input id="filter" type="text" onChange={filterHandler}></input>
       </form>
-      <select multiple onChange={props.onChange} selection={props.selection}>
-        {Object.entries(props.people)
-          .filter(([k, p]) => p.surname.startsWith(filter))
-          .map(([k, p]) => (
-            <option value={p.key} key={p.key}>{`${p.surname}, ${p.name}`}</option>
-          ))}
+      <select size={5} onChange={props.onChange} selection={props.selection}>
+        {props.people
+          .filter(p => p.surname.startsWith(filter))
+          .map(p => (
+              <option value={p.key} key={p.key}>{`${p.surname}, ${p.name}`}</option>
+        ))}
       </select>
     </div>
   );
