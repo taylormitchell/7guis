@@ -1,18 +1,21 @@
 
 .flight-booker {
-  width: 200px;
+  width: 250px;
   padding: 10px;
 }
 
-.flight-booker > * {
+.flight-booker * {
   margin-bottom: 2px;
+  font-size: 18px;
 }
 
 .selector {
+  height: 30px;
   width: 100%;
 }
 
 .date-field {
+  height: 30px;
   width: 100%;
   border: 1px solid #ccc;
 }
