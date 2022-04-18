@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import style from "./CircleSlider.module.css";
+import style from "./CircleDrawer.module.css";
 
 const CircleSlider = (props) => {
 

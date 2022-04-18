@@ -9,6 +9,10 @@
 .circle-drawer header {
     flex: 0 0 auto;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding-top: 5px;
 }
 
 .circle-drawer section {
@@ -45,3 +49,14 @@
     position: relative;
 }
 
+.circle-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    font-size: small;
+    width: 150px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: gainsboro;
+}
