@@ -10,12 +10,10 @@ const TemperatureConverter = (props) => {
 
   const createChangeHandler = (inputSetter, outputSetter, inputToOutput) => {
     return (e) => {
+      inputSetter(e.target.value);
       let temp = e.target.value === "" ? NaN : Number(e.target.value);
       if (!isNaN(temp)) {
-        inputSetter(temp);
         outputSetter(inputToOutput(temp));
-      } else {
-        inputSetter(e.target.value);
       }
     };
   };
