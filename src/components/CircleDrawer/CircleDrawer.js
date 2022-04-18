@@ -9,9 +9,7 @@ const CircleDrawer = (props) => {
 
   const [undoStack, setUndoStack] = useState([]);
   const [redoStack, setRedoStack] = useState([]);
-  const [sliderTop, setSliderTop] = useState(0);
-  const [sliderLeft, setSliderLeft] = useState(0);
-  const [sliderShow, setSliderShow] = useState(false);
+  const [slider, setSlider] = useState({top: 0, left: 0, visible: false});
   const [selectedCircleId, setSelectedCircleId] = useState(-1);
   const canvas = useRef();
 
@@ -42,7 +40,7 @@ const CircleDrawer = (props) => {
   }, {});
 
   const canvasClickHandler = (e) => {
-    if (sliderShow) return;
+    if (slider.visible) return;
     let rect = canvas.current.getBoundingClientRect();
     let x = e.clientX - rect.left;
     let y = e.clientY - rect.top;
@@ -65,22 +63,20 @@ const CircleDrawer = (props) => {
     dispatchCircles({ type: "SET_CIRCLES", values: redoStackPop() });
   };
 
-  const sliderOpenHandler = (circleId, event) => {
-    setSliderTop(event.pageY);
-    setSliderLeft(event.pageX);
-    setSliderShow(true);
+  const sliderOpen = (circleId, event) => {
+    setSlider({top: event.pageY, left: event.pageX, visible: true});
     setSelectedCircleId(circleId);
     undoStackPush(_.cloneDeep(circles));
     event.stopPropagation();
   };
 
-  const sliderCloseHandler = (circleId) => {
+  const sliderClose = (circleId) => {
     let circle = circles[circleId];
     let prevCircle = undoStack.slice(-1)[0][circleId] || null;
-    if (prevCircle.radius !== circle.radius) {
+    if (prevCircle.radius === circle.radius) {
       undoStackPop();
     }
-    setSliderShow(false);
+    setSlider(s => ({...s, visible: false}));
   };
 
   const sliderChangeHandler = (circleId, event) => {
@@ -98,17 +94,17 @@ const CircleDrawer = (props) => {
         <section>
           <div ref={canvas} className={style["canvas"]} onClick={canvasClickHandler}>
             {Object.entries(circles).map(([id, c]) => (
-              <Circle key={id} {...c} onClick={sliderOpenHandler.bind(null, id)} />
+              <Circle key={id} {...c} onClick={sliderOpen.bind(null, id)} />
             ))}
           </div>
         </section>
       </div>
-      {sliderShow ? (
+      {slider.visible ? (
         <CircleSlider
-          top={sliderTop}
-          left={sliderLeft}
+          top={slider.top}
+          left={slider.left}
+          close={sliderClose.bind(null, selectedCircleId)}
           onChange={sliderChangeHandler.bind(null, selectedCircleId)}
-          onClose={sliderCloseHandler.bind(null, selectedCircleId)}
         />
       ) : null}
     </Fragment>
